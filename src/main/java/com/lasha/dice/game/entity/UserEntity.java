@@ -1,27 +1,30 @@
 package com.lasha.dice.game.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class UserEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String password;
     private String email;
-    private String phone;
+    private String phoneNumber;
 
     public UserEntity()
     {
     }
 
-    public UserEntity(int id, String username, String password, String email, String phone)
+    public UserEntity(int id, String username, String password, String email, String phoneNumber)
     {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
     }
 
     public int getId()
@@ -64,13 +67,33 @@ public class UserEntity
         this.email = email;
     }
 
-    public String getPhone()
+    public String getPhoneNumber()
     {
-        return phone;
+        return phoneNumber;
     }
 
-    public void setPhone(String phone)
+    public void setPhoneNumber(String phoneNumber)
     {
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isValid()
+    {
+        return username != null && !username.isEmpty() &&
+               password != null && !password.isEmpty() &&
+               email != null && !email.isEmpty() &&
+               phoneNumber != null && !phoneNumber.isEmpty();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

@@ -1,0 +1,11 @@
+package com.lasha.dice.game.exception;
+
+public class UsersNotAvailableException extends RuntimeException
+{
+    private static final String DEFAULT_MESSAGE = "users list is empty";
+
+    public UsersNotAvailableException()
+    {
+        super(DEFAULT_MESSAGE);
+    }
+}

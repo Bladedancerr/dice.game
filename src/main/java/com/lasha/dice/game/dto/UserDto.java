@@ -1,5 +1,7 @@
 package com.lasha.dice.game.dto;
 
+import jdk.jshell.Snippet;
+
 public class UserDto
 {
     private String username;
@@ -45,5 +47,15 @@ public class UserDto
     public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "UserDto{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
