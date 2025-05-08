@@ -13,6 +13,11 @@ public class UserMapper
 {
     public UserDto userEntityToUserDto(UserEntity userEntity)
     {
+        if(userEntity == null)
+        {
+            return null;
+        }
+
         return new UserDto(userEntity.getUsername(), userEntity.getEmail(), userEntity.getPhoneNumber());
     }
 

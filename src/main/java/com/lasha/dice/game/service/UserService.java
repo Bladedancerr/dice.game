@@ -2,9 +2,11 @@ package com.lasha.dice.game.service;
 
 import com.lasha.dice.game.dto.UserCreationDto;
 import com.lasha.dice.game.dto.UserDto;
+import com.lasha.dice.game.dto.UserLoginDto;
 import com.lasha.dice.game.entity.UserEntity;
 import com.lasha.dice.game.exception.InvalidUserValuesException;
 import com.lasha.dice.game.exception.UserAlreadyExistsException;
+import com.lasha.dice.game.exception.UserNotFoundException;
 import com.lasha.dice.game.exception.UsersNotAvailableException;
 import com.lasha.dice.game.repository.UserRepository;
 import com.lasha.dice.game.util.mapper.UserMapper;
@@ -58,5 +60,22 @@ public class UserService
         }
 
         return toReturn;
+    }
+
+    public UserDto findByUsername(String username)
+    {
+        if (username == null || username.isEmpty())
+        {
+            throw new InvalidUserValuesException();
+        }
+
+        UserEntity retrievedUser = userRepository.findByUsername(username).orElse(null);
+
+        if (retrievedUser == null)
+        {
+            throw new UserNotFoundException();
+        }
+
+        return userMapper.userEntityToUserDto(retrievedUser);
     }
 }

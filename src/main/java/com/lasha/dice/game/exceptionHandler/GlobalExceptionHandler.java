@@ -3,6 +3,7 @@ package com.lasha.dice.game.exceptionHandler;
 
 import com.lasha.dice.game.exception.InvalidUserValuesException;
 import com.lasha.dice.game.exception.UserAlreadyExistsException;
+import com.lasha.dice.game.exception.UserNotFoundException;
 import com.lasha.dice.game.exception.UsersNotAvailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -33,4 +34,12 @@ public class GlobalExceptionHandler
         ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value(), request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex, HttpServletRequest request)
+    {
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND.value(), request.getRequestURI());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
 }

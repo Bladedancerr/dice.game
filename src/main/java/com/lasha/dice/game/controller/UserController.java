@@ -2,6 +2,7 @@ package com.lasha.dice.game.controller;
 
 import com.lasha.dice.game.dto.UserCreationDto;
 import com.lasha.dice.game.dto.UserDto;
+import com.lasha.dice.game.dto.UserLoginDto;
 import com.lasha.dice.game.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +29,15 @@ public class UserController
         return new ResponseEntity<UserDto>(userService.saveUser(userCreationDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     public ResponseEntity<List<UserDto>> getAllUsers()
     {
         return new ResponseEntity<List<UserDto>>(userService.getAllUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username)
+    {
+        return new ResponseEntity<UserDto>(userService.findByUsername(username), HttpStatus.OK);
     }
 }
