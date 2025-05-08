@@ -1,17 +1,17 @@
 package com.lasha.dice.game.dto;
 
-public class UserCreationDto
+public class CreateUserRequestDto
 {
     private String username;
     private String password;
     private String email;
     private String phoneNumber;
 
-    public UserCreationDto()
+    public CreateUserRequestDto()
     {
     }
 
-    public UserCreationDto(String username, String password, String email, String phoneNumber)
+    public CreateUserRequestDto(String username, String password, String email, String phoneNumber)
     {
         this.username = username;
         this.password = password;
@@ -64,6 +64,7 @@ public class UserCreationDto
         return username != null && !username.isEmpty() &&
                 password != null && !password.isEmpty() &&
                 email != null && !email.isEmpty() &&
-                phoneNumber != null && !phoneNumber.isEmpty();
+                email.contains("@") && phoneNumber != null &&
+                !phoneNumber.isEmpty();
     }
 }

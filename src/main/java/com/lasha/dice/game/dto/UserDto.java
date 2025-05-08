@@ -4,6 +4,7 @@ import jdk.jshell.Snippet;
 
 public class UserDto
 {
+    private int id;
     private String username;
     private String email;
     private String phoneNumber;
@@ -12,11 +13,12 @@ public class UserDto
     {
     }
 
-    public UserDto(String username, String email, String phoneNumber)
+    public UserDto(int id, String username, String email, String phoneNumber)
     {
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.id = id;
     }
 
     public String getUsername()
@@ -47,6 +49,16 @@ public class UserDto
     public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     @Override

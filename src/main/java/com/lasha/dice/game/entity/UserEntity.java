@@ -2,6 +2,8 @@ package com.lasha.dice.game.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "users")
 public class UserEntity
@@ -13,12 +15,13 @@ public class UserEntity
     private String password;
     private String email;
     private String phoneNumber;
+    private Date createdAt;
 
     public UserEntity()
     {
     }
 
-    public UserEntity(int id, String username, String password, String email, String phoneNumber)
+    public UserEntity(int id, String username, String password, String email, String phoneNumber, Date createdAt)
     {
         this.id = id;
         this.username = username;
@@ -75,6 +78,16 @@ public class UserEntity
     public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Date getCreatedAt()
+    {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt)
+    {
+        this.createdAt = createdAt;
     }
 
     public boolean isValid()

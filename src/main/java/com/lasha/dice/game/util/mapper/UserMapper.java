@@ -1,11 +1,13 @@
 package com.lasha.dice.game.util.mapper;
 
-import com.lasha.dice.game.dto.UserCreationDto;
+import com.lasha.dice.game.dto.CreateUserRequestDto;
+import com.lasha.dice.game.dto.UserDeleteResponseDto;
 import com.lasha.dice.game.dto.UserDto;
 import com.lasha.dice.game.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -18,10 +20,10 @@ public class UserMapper
             return null;
         }
 
-        return new UserDto(userEntity.getUsername(), userEntity.getEmail(), userEntity.getPhoneNumber());
+        return new UserDto(userEntity.getId(), userEntity.getUsername(), userEntity.getEmail(), userEntity.getPhoneNumber());
     }
 
-    public UserEntity userCreationDtoToUserEntity(UserCreationDto userCreationDto)
+    public UserEntity userCreationDtoToUserEntity(CreateUserRequestDto userCreationDto)
     {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userCreationDto.getUsername());
@@ -29,6 +31,16 @@ public class UserMapper
         userEntity.setEmail(userCreationDto.getEmail());
         userEntity.setPhoneNumber(userCreationDto.getPhoneNumber());
         return userEntity;
+    }
+
+    public UserDeleteResponseDto userEntityToUserDeleteResponseDto(UserEntity userEntity)
+    {
+        if(userEntity == null)
+        {
+            return null;
+        }
+
+        return new UserDeleteResponseDto(userEntity.getUsername(), new Date(System.currentTimeMillis()));
     }
 
     public List<UserDto> userEntitiesToUserDto(List<UserEntity> userEntities)

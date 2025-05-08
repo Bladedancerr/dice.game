@@ -1,8 +1,6 @@
 package com.lasha.dice.game.controller;
 
-import com.lasha.dice.game.dto.UserCreationDto;
-import com.lasha.dice.game.dto.UserDto;
-import com.lasha.dice.game.dto.UserLoginDto;
+import com.lasha.dice.game.dto.*;
 import com.lasha.dice.game.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +22,14 @@ public class UserController
     }
 
     @PostMapping("/user/register")
-    public ResponseEntity<UserDto> register(@RequestBody UserCreationDto userCreationDto)
+    public ResponseEntity<JwtResponseDto> register(@RequestBody CreateUserRequestDto userCreationDto) {
+        return new ResponseEntity<>(userService.saveUserAndGenerateToken(userCreationDto), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/user/delete")
+    public ResponseEntity<UserDeleteResponseDto> deleteUser(@RequestBody UserDeleteRequestDto userDeleteRequestDto)
     {
-        return new ResponseEntity<UserDto>(userService.saveUser(userCreationDto), HttpStatus.CREATED);
+        return new ResponseEntity<UserDeleteResponseDto>(userService.deleteUser(userDeleteRequestDto), HttpStatus.OK);
     }
 
     @GetMapping("/user")
@@ -39,5 +42,11 @@ public class UserController
     public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username)
     {
         return new ResponseEntity<UserDto>(userService.findByUsername(username), HttpStatus.OK);
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<JwtResponseDto> login(@RequestBody UserLoginRequestDto userLoginDto)
+    {
+        return new ResponseEntity<>(userService.login(userLoginDto), HttpStatus.OK);
     }
 }
