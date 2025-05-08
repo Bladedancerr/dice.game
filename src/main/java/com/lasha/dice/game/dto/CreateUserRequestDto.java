@@ -1,5 +1,7 @@
 package com.lasha.dice.game.dto;
 
+import java.util.regex.Pattern;
+
 public class CreateUserRequestDto
 {
     private String username;
@@ -61,10 +63,13 @@ public class CreateUserRequestDto
 
     public boolean isValid()
     {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+
         return username != null && !username.isEmpty() &&
                 password != null && !password.isEmpty() &&
                 email != null && !email.isEmpty() &&
-                email.contains("@") && phoneNumber != null &&
+                pattern.matcher(email).matches() && phoneNumber != null &&
                 !phoneNumber.isEmpty();
     }
 }

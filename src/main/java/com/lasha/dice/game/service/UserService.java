@@ -20,11 +20,11 @@ import java.util.List;
 @Service
 public class UserService
 {
-    private UserRepository userRepository;
-    private UserMapper userMapper;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private JwtService jwtService;
-    private AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
     public UserService(UserRepository userRepository, UserMapper userMapper, BCryptPasswordEncoder bCryptPasswordEncoder, JwtService jwtService, AuthenticationManager authenticationManager)

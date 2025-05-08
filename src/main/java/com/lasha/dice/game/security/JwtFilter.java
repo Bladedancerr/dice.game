@@ -20,11 +20,16 @@ import java.io.IOException;
 
 public class JwtFilter extends OncePerRequestFilter
 {
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+
+    private final ApplicationContext context;
 
     @Autowired
-    ApplicationContext context;
+    public JwtFilter (JwtService jwtService, ApplicationContext context)
+    {
+        this.context = context;
+        this.jwtService = jwtService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
