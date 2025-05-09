@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -20,12 +21,15 @@ import java.util.function.Function;
 @Service
 public class JwtService
 {
+    @Value("${jwt.secret:}")
     private String SECRET_KEY;
 
     public JwtService()
     {
-        //not in production cause on restart key will change
-        this.SECRET_KEY = secretKey();
+        if(SECRET_KEY == null || SECRET_KEY.isEmpty())
+        {
+            throw new IllegalArgumentException("Secret key must be provided");
+        }
     }
 
     public JwtResponseDto generateToken(UserLoginRequestDto userLoginDto)
