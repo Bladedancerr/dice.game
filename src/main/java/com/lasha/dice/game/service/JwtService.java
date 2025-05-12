@@ -21,16 +21,8 @@ import java.util.function.Function;
 @Service
 public class JwtService
 {
-    @Value("${jwt.secret:}")
+    @Value("${jwt.secret}")
     private String SECRET_KEY;
-
-    public JwtService()
-    {
-        if(SECRET_KEY == null || SECRET_KEY.isEmpty())
-        {
-            throw new IllegalArgumentException("Secret key must be provided");
-        }
-    }
 
     public JwtResponseDto generateToken(UserLoginRequestDto userLoginDto)
     {

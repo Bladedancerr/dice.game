@@ -8,4 +8,9 @@ public class UsersNotAvailableException extends RuntimeException
     {
         super(DEFAULT_MESSAGE);
     }
+
+    public UsersNotAvailableException(String message)
+    {
+        super(message);
+    }
 }

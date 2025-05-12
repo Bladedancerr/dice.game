@@ -38,11 +38,13 @@ public class UserService
 
     public JwtResponseDto saveUserAndGenerateToken(CreateUserRequestDto userCreationDto)
     {
-        if (userCreationDto == null || userCreationDto.isValid() == false) {
+        if (userCreationDto == null || userCreationDto.isValid() == false)
+        {
             throw new InvalidUserValuesException();
         }
 
-        if (userRepository.findByUsername(userCreationDto.getUsername()).isPresent() == true) {
+        if (userRepository.findByUsername(userCreationDto.getUsername()).isPresent() == true)
+        {
             throw new UserAlreadyExistsException();
         }
 

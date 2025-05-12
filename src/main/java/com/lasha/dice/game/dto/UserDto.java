@@ -2,9 +2,11 @@ package com.lasha.dice.game.dto;
 
 import jdk.jshell.Snippet;
 
+import java.util.UUID;
+
 public class UserDto
 {
-    private int id;
+    private UUID id;
     private String username;
     private String email;
     private String phoneNumber;
@@ -13,7 +15,7 @@ public class UserDto
     {
     }
 
-    public UserDto(int id, String username, String email, String phoneNumber)
+    public UserDto(UUID id, String username, String email, String phoneNumber)
     {
         this.username = username;
         this.email = email;
@@ -51,12 +53,12 @@ public class UserDto
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(UUID id)
     {
         this.id = id;
     }
@@ -65,7 +67,8 @@ public class UserDto
     public String toString()
     {
         return "UserDto{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';

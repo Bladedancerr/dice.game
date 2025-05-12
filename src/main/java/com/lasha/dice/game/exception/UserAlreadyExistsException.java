@@ -8,4 +8,9 @@ public class UserAlreadyExistsException extends RuntimeException
     {
         super(DEFAULT_MESSAGE);
     }
+
+    public UserAlreadyExistsException(String message)
+    {
+        super(message);
+    }
 }

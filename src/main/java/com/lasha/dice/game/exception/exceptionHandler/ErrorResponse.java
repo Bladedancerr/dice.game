@@ -1,4 +1,4 @@
-package com.lasha.dice.game.exceptionHandler;
+package com.lasha.dice.game.exception.exceptionHandler;
 
 import java.time.LocalDateTime;
 

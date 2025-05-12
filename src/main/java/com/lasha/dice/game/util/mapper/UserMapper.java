@@ -30,6 +30,7 @@ public class UserMapper
         userEntity.setPassword(userCreationDto.getPassword());
         userEntity.setEmail(userCreationDto.getEmail());
         userEntity.setPhoneNumber(userCreationDto.getPhoneNumber());
+        userEntity.setCreatedAt(new Date(System.currentTimeMillis()));
         return userEntity;
     }
 

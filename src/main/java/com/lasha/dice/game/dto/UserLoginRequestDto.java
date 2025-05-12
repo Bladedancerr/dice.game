@@ -40,4 +40,13 @@ public class UserLoginRequestDto
         return username != null && !username.isEmpty() &&
                 password != null && !password.isEmpty();
     }
+
+    @Override
+    public String toString()
+    {
+        return "UserLoginRequestDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

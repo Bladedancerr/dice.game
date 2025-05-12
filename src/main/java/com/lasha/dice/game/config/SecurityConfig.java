@@ -27,7 +27,7 @@ public class SecurityConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception
     {
         security.csrf(customizer -> customizer.disable())
-                .authorizeHttpRequests(customizer -> customizer.requestMatchers("/api/user/register", "/api/user/login").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(customizer -> customizer.requestMatchers("/api/user/register", "/api/user/login", "/api/table/create").permitAll().anyRequest().authenticated())
                 .httpBasic(basic -> basic.disable())
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

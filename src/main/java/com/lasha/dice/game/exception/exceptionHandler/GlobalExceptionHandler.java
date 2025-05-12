@@ -1,11 +1,10 @@
-package com.lasha.dice.game.exceptionHandler;
+package com.lasha.dice.game.exception.exceptionHandler;
 
 
 import com.lasha.dice.game.exception.InvalidUserValuesException;
 import com.lasha.dice.game.exception.UserAlreadyExistsException;
 import com.lasha.dice.game.exception.UserNotFoundException;
 import com.lasha.dice.game.exception.UsersNotAvailableException;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

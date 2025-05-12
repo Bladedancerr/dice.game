@@ -8,4 +8,9 @@ public class InvalidUserValuesException extends RuntimeException
     {
         super(DEFAULT_MESSAGE);
     }
+
+    public InvalidUserValuesException(String message)
+    {
+        super(message);
+    }
 }

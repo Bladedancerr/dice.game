@@ -1,16 +1,20 @@
 package com.lasha.dice.game.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class UserEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false)
+    private UUID id;
     private String username;
     private String password;
     private String email;
@@ -21,7 +25,7 @@ public class UserEntity
     {
     }
 
-    public UserEntity(int id, String username, String password, String email, String phoneNumber, Date createdAt)
+    public UserEntity(UUID id, String username, String password, String email, String phoneNumber, Date createdAt)
     {
         this.id = id;
         this.username = username;
@@ -30,12 +34,12 @@ public class UserEntity
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId()
+    public UUID getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(UUID id)
     {
         this.id = id;
     }
