@@ -13,24 +13,29 @@ public class TableEntity
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(updatable = false, nullable = false)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "host_id", nullable = false)
     private UserEntity host;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guest_id")
     private UserEntity guest;
 
+    @Column(name = "host_username", nullable = false)
+    private String hostUsername;
+
+    @Column(name = "guest_username", nullable = true)
+    private String guestUsername;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Enums.TableStatus status;
 
-    public TableEntity(UUID id, UserEntity host, UserEntity guest, Enums.TableStatus status)
+    public TableEntity()
     {
-        this.id = id;
-        this.host = host;
-        this.guest = guest;
-        this.status = status;
     }
 
     public UUID getId()
@@ -61,6 +66,26 @@ public class TableEntity
     public void setGuest(UserEntity guest)
     {
         this.guest = guest;
+    }
+
+    public String getHostUsername()
+    {
+        return hostUsername;
+    }
+
+    public void setHostUsername(String hostUsername)
+    {
+        this.hostUsername = hostUsername;
+    }
+
+    public String getGuestUsername()
+    {
+        return guestUsername;
+    }
+
+    public void setGuestUsername(String guestUsername)
+    {
+        this.guestUsername = guestUsername;
     }
 
     public Enums.TableStatus getStatus()

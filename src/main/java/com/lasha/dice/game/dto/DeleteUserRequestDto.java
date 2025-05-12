@@ -1,15 +1,15 @@
 package com.lasha.dice.game.dto;
 
-public class UserDeleteRequestDto
+public class DeleteUserRequestDto
 {
     private String username;
     private String reasonOfDeletion;
 
-    public UserDeleteRequestDto()
+    public DeleteUserRequestDto()
     {
     }
 
-    public UserDeleteRequestDto(String username, String reasonOfDeletion)
+    public DeleteUserRequestDto(String username, String reasonOfDeletion)
     {
         this.username = username;
         this.reasonOfDeletion = reasonOfDeletion;

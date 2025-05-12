@@ -1,15 +1,15 @@
 package com.lasha.dice.game.dto;
 
-public class UserLoginRequestDto
+public class LoginUserRequestDto
 {
     private String username;
     private String password;
 
-    public UserLoginRequestDto()
+    public LoginUserRequestDto()
     {
     }
 
-    public UserLoginRequestDto(String username, String password)
+    public LoginUserRequestDto(String username, String password)
     {
         this.username = username;
         this.password = password;
@@ -44,7 +44,7 @@ public class UserLoginRequestDto
     @Override
     public String toString()
     {
-        return "UserLoginRequestDto{" +
+        return "LoginUserRequestDto{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -27,9 +27,9 @@ public class UserController
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<UserDeleteResponseDto> deleteUser(@RequestBody UserDeleteRequestDto userDeleteRequestDto)
+    public ResponseEntity<DeleteUserResponseDto> deleteUser(@RequestBody DeleteUserRequestDto deleteUserRequestDto)
     {
-        return new ResponseEntity<UserDeleteResponseDto>(userService.deleteUser(userDeleteRequestDto), HttpStatus.OK);
+        return new ResponseEntity<DeleteUserResponseDto>(userService.deleteUser(deleteUserRequestDto), HttpStatus.OK);
     }
 
     @GetMapping()
@@ -45,7 +45,7 @@ public class UserController
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponseDto> login(@RequestBody UserLoginRequestDto userLoginDto)
+    public ResponseEntity<JwtResponseDto> login(@RequestBody LoginUserRequestDto userLoginDto)
     {
         return new ResponseEntity<>(userService.login(userLoginDto), HttpStatus.OK);
     }

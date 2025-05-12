@@ -1,7 +1,7 @@
 package com.lasha.dice.game.util.mapper;
 
 import com.lasha.dice.game.dto.CreateUserRequestDto;
-import com.lasha.dice.game.dto.UserDeleteResponseDto;
+import com.lasha.dice.game.dto.DeleteUserResponseDto;
 import com.lasha.dice.game.dto.UserDto;
 import com.lasha.dice.game.entity.UserEntity;
 import org.springframework.stereotype.Component;
@@ -34,14 +34,14 @@ public class UserMapper
         return userEntity;
     }
 
-    public UserDeleteResponseDto userEntityToUserDeleteResponseDto(UserEntity userEntity)
+    public DeleteUserResponseDto userEntityToUserDeleteResponseDto(UserEntity userEntity)
     {
         if(userEntity == null)
         {
             return null;
         }
 
-        return new UserDeleteResponseDto(userEntity.getUsername(), new Date(System.currentTimeMillis()));
+        return new DeleteUserResponseDto(userEntity.getUsername(), new Date(System.currentTimeMillis()));
     }
 
     public List<UserDto> userEntitiesToUserDto(List<UserEntity> userEntities)

@@ -1,0 +1,1 @@
+ALTER TABLE tables MODIFY COLUMN guest_username VARCHAR(30) NULL;

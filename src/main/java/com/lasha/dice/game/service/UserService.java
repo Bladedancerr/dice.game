@@ -52,7 +52,7 @@ public class UserService
         UserEntity userEntity = userMapper.userCreationDtoToUserEntity(userCreationDto);
         userRepository.save(userEntity);
 
-        UserLoginRequestDto loginDto = new UserLoginRequestDto();
+        LoginUserRequestDto loginDto = new LoginUserRequestDto();
         loginDto.setUsername(userCreationDto.getUsername());
         loginDto.setPassword(userCreationDto.getPassword()); // this is already encoded, but it doesn't matter for token
 
@@ -83,7 +83,7 @@ public class UserService
         return userMapper.userEntityToUserDto(retrievedUser);
     }
 
-    public JwtResponseDto login(UserLoginRequestDto loginDto)
+    public JwtResponseDto login(LoginUserRequestDto loginDto)
     {
         if (loginDto == null || loginDto.isValid() == false)
         {
@@ -104,14 +104,14 @@ public class UserService
         return jwtService.generateToken(loginDto);
     }
 
-    public UserDeleteResponseDto deleteUser(UserDeleteRequestDto userDeleteRequestDto)
+    public DeleteUserResponseDto deleteUser(DeleteUserRequestDto deleteUserRequestDto)
     {
-        if(userDeleteRequestDto == null || userDeleteRequestDto.getUsername() == null || userDeleteRequestDto.getUsername().isEmpty())
+        if(deleteUserRequestDto == null || deleteUserRequestDto.getUsername() == null || deleteUserRequestDto.getUsername().isEmpty())
         {
             throw new InvalidUserValuesException();
         }
 
-        UserEntity userEntity = userRepository.findByUsername(userDeleteRequestDto.getUsername()).orElseThrow(() -> new UserNotFoundException());
+        UserEntity userEntity = userRepository.findByUsername(deleteUserRequestDto.getUsername()).orElseThrow(() -> new UserNotFoundException());
 
         userRepository.delete(userEntity);
 

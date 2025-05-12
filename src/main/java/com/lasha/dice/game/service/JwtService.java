@@ -1,7 +1,7 @@
 package com.lasha.dice.game.service;
 
 import com.lasha.dice.game.dto.JwtResponseDto;
-import com.lasha.dice.game.dto.UserLoginRequestDto;
+import com.lasha.dice.game.dto.LoginUserRequestDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -21,10 +21,20 @@ import java.util.function.Function;
 @Service
 public class JwtService
 {
-    @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public JwtResponseDto generateToken(UserLoginRequestDto userLoginDto)
+    public JwtService(@Value("${jwt.secret}") String secretKey)
+    {
+        this.SECRET_KEY = secretKey;
+
+        if(this.SECRET_KEY == null || this.SECRET_KEY.isEmpty())
+        {
+            this.SECRET_KEY = secretKey();
+            System.out.println("Generated new secret key: " + this.SECRET_KEY);
+        }
+    }
+
+    public JwtResponseDto generateToken(LoginUserRequestDto userLoginDto)
     {
         Map<String, Object> claims = new HashMap<>();
         var temp = Jwts.builder()

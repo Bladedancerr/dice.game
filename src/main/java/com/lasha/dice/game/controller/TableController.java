@@ -1,12 +1,18 @@
 package com.lasha.dice.game.controller;
 
 import com.lasha.dice.game.dto.CreateTableRequestDto;
+import com.lasha.dice.game.dto.JoinTableRequestDto;
 import com.lasha.dice.game.entity.UserEntity;
 import com.lasha.dice.game.enums.Enums;
 import com.lasha.dice.game.repository.UserRepository;
 import com.lasha.dice.game.service.TableService;
+import com.lasha.dice.game.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,12 +34,15 @@ public class TableController
     }
 
     @PostMapping("/create")
-    public void createTable()
+    public void createTable(@RequestBody CreateTableRequestDto createTableRequestDto)
     {
-        System.out.println("create table entered");
-        UserEntity userEntity = userRepository.findByUsername("lasha").orElseThrow(() -> new RuntimeException("User not found"));
-        UserEntity userEntityTwo = userRepository.findByUsername("natia").orElseThrow(() -> new RuntimeException("User not found"));
-        CreateTableRequestDto createTableRequestDto = new CreateTableRequestDto(new UUID(5, 5), new UUID(6, 6), new UUID(7, 7), Enums.TableStatus.AVAILABLE);
-        tableService.createTable(createTableRequestDto);
+        tableService.saveTable(createTableRequestDto);
+    }
+
+    @PostMapping("/join")
+    public void JoinTable(@RequestBody JoinTableRequestDto joinTableRequestDto)
+    {
+        System.out.println("joinTableRequestDto = " + joinTableRequestDto);
+        tableService.joinTable(joinTableRequestDto);
     }
 }
