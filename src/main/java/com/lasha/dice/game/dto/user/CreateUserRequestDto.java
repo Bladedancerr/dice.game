@@ -1,4 +1,4 @@
-package com.lasha.dice.game.dto;
+package com.lasha.dice.game.dto.user;
 
 import java.util.regex.Pattern;
 

@@ -1,4 +1,4 @@
-package com.lasha.dice.game.exception;
+package com.lasha.dice.game.exception.exceptions;
 
 public class UsersNotAvailableException extends RuntimeException
 {

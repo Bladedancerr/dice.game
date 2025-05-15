@@ -1,6 +1,6 @@
 package com.lasha.dice.game.controller;
 
-import com.lasha.dice.game.dto.*;
+import com.lasha.dice.game.dto.user.*;
 import com.lasha.dice.game.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
@@ -38,10 +39,16 @@ public class UserController
         return new ResponseEntity<List<UserDto>>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username)
+//    @GetMapping("/{username}")
+//    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username)
+//    {
+//        return new ResponseEntity<UserDto>(userService.findByUsername(username), HttpStatus.OK);
+//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable UUID id)
     {
-        return new ResponseEntity<UserDto>(userService.findByUsername(username), HttpStatus.OK);
+        return new ResponseEntity<UserDto>(userService.findUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/login")

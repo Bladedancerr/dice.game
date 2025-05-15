@@ -1,11 +1,11 @@
 package com.lasha.dice.game.service;
 
-import com.lasha.dice.game.dto.*;
+import com.lasha.dice.game.dto.user.*;
 import com.lasha.dice.game.entity.UserEntity;
-import com.lasha.dice.game.exception.InvalidUserValuesException;
-import com.lasha.dice.game.exception.UserAlreadyExistsException;
-import com.lasha.dice.game.exception.UserNotFoundException;
-import com.lasha.dice.game.exception.UsersNotAvailableException;
+import com.lasha.dice.game.exception.exceptions.InvalidUserValuesException;
+import com.lasha.dice.game.exception.exceptions.UserAlreadyExistsException;
+import com.lasha.dice.game.exception.exceptions.UserNotFoundException;
+import com.lasha.dice.game.exception.exceptions.UsersNotAvailableException;
 import com.lasha.dice.game.repository.UserRepository;
 import com.lasha.dice.game.util.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService
@@ -116,5 +117,17 @@ public class UserService
         userRepository.delete(userEntity);
 
         return userMapper.userEntityToUserDeleteResponseDto(userEntity);
+    }
+
+    public UserDto findUserById(UUID id)
+    {
+        if (id == null || id.toString().isEmpty())
+        {
+            throw new InvalidUserValuesException();
+        }
+
+        UserEntity retrievedUser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+
+        return userMapper.userEntityToUserDto(retrievedUser);
     }
 }

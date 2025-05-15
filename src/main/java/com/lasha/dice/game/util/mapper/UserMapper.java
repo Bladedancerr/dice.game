@@ -1,8 +1,8 @@
 package com.lasha.dice.game.util.mapper;
 
-import com.lasha.dice.game.dto.CreateUserRequestDto;
-import com.lasha.dice.game.dto.DeleteUserResponseDto;
-import com.lasha.dice.game.dto.UserDto;
+import com.lasha.dice.game.dto.user.CreateUserRequestDto;
+import com.lasha.dice.game.dto.user.DeleteUserResponseDto;
+import com.lasha.dice.game.dto.user.UserDto;
 import com.lasha.dice.game.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,15 @@ public class UserMapper
             return null;
         }
 
-        return new UserDto(userEntity.getId(), userEntity.getUsername(), userEntity.getEmail(), userEntity.getPhoneNumber());
+        UserDto userDto = new UserDto();
+        userDto.setUsername(userEntity.getUsername());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setPhoneNumber(userEntity.getPhoneNumber());
+        userDto.setId(userEntity.getId());
+        userDto.setWinStreak(userEntity.getWinStreak());
+        userDto.setAvatarId(userEntity.getAvatarId());
+        userDto.setGamesPlayed(userEntity.getGamesPlayed());
+        return userDto;
     }
 
     public UserEntity userCreationDtoToUserEntity(CreateUserRequestDto userCreationDto)

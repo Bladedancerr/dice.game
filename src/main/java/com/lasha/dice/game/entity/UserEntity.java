@@ -20,18 +20,12 @@ public class UserEntity
     private String email;
     private String phoneNumber;
     private Date createdAt;
+    private int winStreak;
+    private int gamesPlayed;
+    private int avatarId;
 
     public UserEntity()
     {
-    }
-
-    public UserEntity(UUID id, String username, String password, String email, String phoneNumber, Date createdAt)
-    {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
     }
 
     public UUID getId()
@@ -94,6 +88,36 @@ public class UserEntity
         this.createdAt = createdAt;
     }
 
+    public int getWinStreak()
+    {
+        return winStreak;
+    }
+
+    public void setWinStreak(int winStreak)
+    {
+        this.winStreak = winStreak;
+    }
+
+    public int getAvatarId()
+    {
+        return avatarId;
+    }
+
+    public void setAvatarId(int avatarId)
+    {
+        this.avatarId = avatarId;
+    }
+
+    public int getGamesPlayed()
+    {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(int gamesPlayed)
+    {
+        this.gamesPlayed = gamesPlayed;
+    }
+
     public boolean isValid()
     {
         return username != null && !username.isEmpty() &&
@@ -111,6 +135,10 @@ public class UserEntity
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", createdAt=" + createdAt +
+                ", winStreak=" + winStreak +
+                ", gamesPlayed=" + gamesPlayed +
+                ", avatarId=" + avatarId +
                 '}';
     }
 }

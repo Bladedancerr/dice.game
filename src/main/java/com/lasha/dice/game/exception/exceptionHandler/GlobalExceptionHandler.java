@@ -1,7 +1,7 @@
 package com.lasha.dice.game.exception.exceptionHandler;
 
 
-import com.lasha.dice.game.exception.*;
+import com.lasha.dice.game.exception.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

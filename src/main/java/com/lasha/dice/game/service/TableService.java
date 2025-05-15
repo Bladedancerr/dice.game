@@ -1,18 +1,18 @@
 package com.lasha.dice.game.service;
 
-import com.lasha.dice.game.dto.CreateTableRequestDto;
-import com.lasha.dice.game.dto.JoinTableRequestDto;
+import com.lasha.dice.game.dto.table.*;
 import com.lasha.dice.game.entity.TableEntity;
 import com.lasha.dice.game.entity.UserEntity;
 import com.lasha.dice.game.enums.Enums;
-import com.lasha.dice.game.exception.TableNotFoundException;
-import com.lasha.dice.game.exception.UserNotFoundException;
+import com.lasha.dice.game.exception.exceptions.TableNotFoundException;
+import com.lasha.dice.game.exception.exceptions.UserNotFoundException;
 import com.lasha.dice.game.repository.TableRepository;
 import com.lasha.dice.game.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,7 +29,7 @@ public class TableService
         this.userRepository = userRepository;
     }
 
-    public void saveTable(CreateTableRequestDto createTableRequestDto)
+    public CreateTableResponseDto saveTable(CreateTableRequestDto createTableRequestDto)
     {
         UUID hostId = UUID.fromString(createTableRequestDto.getHostId());
         UserEntity hostEntity = userRepository.findById(hostId).orElseThrow(() -> new UserNotFoundException());
@@ -38,16 +38,47 @@ public class TableService
         tableEntity.setHostUsername(hostEntity.getUsername());
         tableEntity.setStatus(Enums.TableStatus.AVAILABLE);
         tableRepository.save(tableEntity);
+
+        return new CreateTableResponseDto();
     }
 
-    public void joinTable(JoinTableRequestDto joinTableRequestDto)
+    public JoinTableResponseDto joinTable(JoinTableRequestDto joinTableRequestDto)
     {
-        UUID guestId = UUID.fromString(joinTableRequestDto.getGuestId());
-        UserEntity guestEntity = userRepository.findById(guestId).orElseThrow(() -> new UserNotFoundException());
-        TableEntity tableToJoin = tableRepository.findById(UUID.fromString(joinTableRequestDto.getTableId())).orElseThrow(() -> new TableNotFoundException());
+        System.out.println("service " + joinTableRequestDto.toString());
+
+        UserEntity guestEntity = userRepository.findById(joinTableRequestDto.getGuestId()).orElseThrow(() -> new UserNotFoundException());
+        TableEntity tableToJoin = tableRepository.findById(joinTableRequestDto.getTableId()).orElseThrow(() -> new TableNotFoundException());
         tableToJoin.setGuest(guestEntity);
+        System.out.println("guest entity" + guestEntity.getUsername());
         tableToJoin.setGuestUsername(guestEntity.getUsername());
         tableToJoin.setStatus(Enums.TableStatus.FULL);
         tableRepository.save(tableToJoin);
+        return new JoinTableResponseDto();
+    }
+
+    public List<TableDto> getAvailableTables(UUID userId)
+    {
+        List<TableEntity> availableTables = tableRepository.getAvailableTables(userId);
+
+        if(availableTables.isEmpty() == true)
+        {
+            throw new TableNotFoundException();
+        }
+
+        List<TableDto> toReturn = new ArrayList<>();
+        TableDto tableDto;
+
+        for(TableEntity table : availableTables)
+        {
+            tableDto = new TableDto();
+            tableDto.setId(table.getId());
+            tableDto.setHostId(table.getHost().getId());
+            tableDto.setGuestId(table.getGuest() != null ? table.getGuest().getId() : null);
+            tableDto.setGuestUsername(table.getGuestUsername());
+            tableDto.setHostUsername(table.getHostUsername());
+            toReturn.add(tableDto);
+        }
+        System.out.println(toReturn);
+        return toReturn;
     }
 }

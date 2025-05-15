@@ -1,11 +1,16 @@
 package com.lasha.dice.game.service;
 
-import com.lasha.dice.game.dto.JwtResponseDto;
-import com.lasha.dice.game.dto.LoginUserRequestDto;
+import com.lasha.dice.game.dto.user.JwtResponseDto;
+import com.lasha.dice.game.dto.user.LoginUserRequestDto;
+import com.lasha.dice.game.entity.UserEntity;
+import com.lasha.dice.game.exception.exceptions.UserNotFoundException;
+import com.lasha.dice.game.repository.UserRepository;
+import com.lasha.dice.game.util.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.crypto.KeyGenerator;
@@ -22,8 +27,11 @@ import java.util.function.Function;
 public class JwtService
 {
     private String SECRET_KEY;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public JwtService(@Value("${jwt.secret}") String secretKey)
+    @Autowired
+    public JwtService(@Value("${jwt.secret}") String secretKey, UserRepository userRepository, UserMapper userMapper)
     {
         this.SECRET_KEY = secretKey;
 
@@ -32,6 +40,8 @@ public class JwtService
             this.SECRET_KEY = secretKey();
             System.out.println("Generated new secret key: " + this.SECRET_KEY);
         }
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public JwtResponseDto generateToken(LoginUserRequestDto userLoginDto)
@@ -45,7 +55,11 @@ public class JwtService
                 .signWith(getKey())
                 .compact();
 
-        return new JwtResponseDto(temp);
+        UserEntity userEntity = userRepository.findByUsername(userLoginDto.getUsername()).orElseThrow(() -> new UserNotFoundException());
+        JwtResponseDto jwtResponseDto = new JwtResponseDto();
+        jwtResponseDto.setToken(temp);
+        jwtResponseDto.setUserDto(userMapper.userEntityToUserDto(userEntity));
+        return jwtResponseDto;
     }
 
     public String secretKey()

@@ -1,4 +1,4 @@
-package com.lasha.dice.game.dto;
+package com.lasha.dice.game.dto.table;
 
 public class CreateTableRequestDto
 {
