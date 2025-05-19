@@ -31,15 +31,15 @@ public class TableService
 
     public CreateTableResponseDto saveTable(CreateTableRequestDto createTableRequestDto)
     {
-        UUID hostId = UUID.fromString(createTableRequestDto.getHostId());
-        UserEntity hostEntity = userRepository.findById(hostId).orElseThrow(() -> new UserNotFoundException());
+        UserEntity hostEntity = userRepository.findById(createTableRequestDto.getHostId()).orElseThrow(() -> new UserNotFoundException());
         TableEntity tableEntity = new TableEntity();
         tableEntity.setHost(hostEntity);
         tableEntity.setHostUsername(hostEntity.getUsername());
         tableEntity.setStatus(Enums.TableStatus.AVAILABLE);
         tableRepository.save(tableEntity);
-
-        return new CreateTableResponseDto();
+        CreateTableResponseDto createTableResponseDto = new CreateTableResponseDto();
+        createTableResponseDto.setTableId(tableEntity.getId());
+        return createTableResponseDto;
     }
 
     public JoinTableResponseDto joinTable(JoinTableRequestDto joinTableRequestDto)
@@ -80,5 +80,13 @@ public class TableService
         }
         System.out.println(toReturn);
         return toReturn;
+    }
+
+    public DeleteTableResponseDto deleteTable(DeleteTableRequestDto deleteTableRequestDto)
+    {
+        System.out.println("service " + deleteTableRequestDto.getTableId());
+        TableEntity tableToDelete = tableRepository.findById(deleteTableRequestDto.getTableId()).orElseThrow(() -> new TableNotFoundException());
+        tableRepository.delete(tableToDelete);
+        return new DeleteTableResponseDto();
     }
 }

@@ -1,24 +1,26 @@
 package com.lasha.dice.game.dto.table;
 
+import java.util.UUID;
+
 public class CreateTableRequestDto
 {
-    private String hostId;
+    private UUID hostId;
 
     public CreateTableRequestDto()
     {
     }
 
-    public CreateTableRequestDto(String hostId)
+    public CreateTableRequestDto(UUID hostId)
     {
         this.hostId = hostId;
     }
 
-    public String getHostId()
+    public UUID getHostId()
     {
         return hostId;
     }
 
-    public void setHostId(String hostId)
+    public void setHostId(UUID hostId)
     {
         this.hostId = hostId;
     }

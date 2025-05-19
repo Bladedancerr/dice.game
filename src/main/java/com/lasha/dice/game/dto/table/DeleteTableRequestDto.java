@@ -2,23 +2,13 @@ package com.lasha.dice.game.dto.table;
 
 import java.util.UUID;
 
-public class CreateTableResponseDto
+public class DeleteTableRequestDto
 {
-    private String okay = "okay";
     private UUID tableId;
 
-    public CreateTableResponseDto()
+    public DeleteTableRequestDto()
     {
-    }
 
-    public String getOkay()
-    {
-        return okay;
-    }
-
-    public void setOkay(String okay)
-    {
-        this.okay = okay;
     }
 
     public UUID getTableId()

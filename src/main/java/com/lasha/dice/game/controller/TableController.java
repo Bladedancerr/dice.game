@@ -32,6 +32,12 @@ public class TableController
         return new ResponseEntity<>(tableService.saveTable(createTableRequestDto), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<DeleteTableResponseDto> deleteTable(@RequestBody DeleteTableRequestDto deleteTableRequestDto)
+    {
+        return new ResponseEntity<>(tableService.deleteTable(deleteTableRequestDto), HttpStatus.OK);
+    }
+
     @PostMapping("/join")
     public ResponseEntity<JoinTableResponseDto> JoinTable(@RequestBody JoinTableRequestDto joinTableRequestDto)
     {
